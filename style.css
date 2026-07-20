@@ -1,18 +1,21 @@
 /* =========================================================
    기본 설정 (색상, 폰트, 공통 값)
+   AI 느낌의 바이올렛 · 시안 · 핑크 그라데이션 다크 테마
    ========================================================= */
 :root {
-  --color-bg: #ffffff;
-  --color-bg-alt: #f5f7fa;
-  --color-text: #22303f;
-  --color-text-muted: #5a6b7b;
-  --color-primary: #2f5d8a;
-  --color-primary-dark: #244a6e;
-  --color-border: #e2e6ea;
-  --color-card-bg: #ffffff;
+  --color-bg: #0b0c1e;
+  --color-bg-alt: #12142e;
+  --color-surface: #181a3a;
+  --color-text: #f3f3fb;
+  --color-text-muted: #a8a9d1;
+  --color-primary: #8b5cf6;   /* 바이올렛 */
+  --color-secondary: #22d3ee; /* 시안 */
+  --color-accent: #f472b6;    /* 핑크 */
+  --gradient-main: linear-gradient(135deg, #8b5cf6 0%, #22d3ee 55%, #f472b6 100%);
+  --color-border: rgba(255, 255, 255, 0.1);
 
   --max-width: 1080px;
-  --radius: 8px;
+  --radius: 16px;
 }
 
 * {
@@ -31,6 +34,21 @@ body {
   background-color: var(--color-bg);
   line-height: 1.7;
   font-size: 16px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* 은은하게 떠 있는 배경 글로우 (AI 무드) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(560px circle at 12% 18%, rgba(139, 92, 246, 0.28), transparent 60%),
+    radial-gradient(480px circle at 88% 8%, rgba(34, 211, 238, 0.22), transparent 60%),
+    radial-gradient(520px circle at 50% 95%, rgba(244, 114, 182, 0.2), transparent 60%);
+  pointer-events: none;
 }
 
 .container {
@@ -44,9 +62,17 @@ h1, h2, h3 {
   line-height: 1.4;
 }
 
+h1, h2 {
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 800;
+}
+
 h2 {
-  font-size: 1.75rem;
-  font-weight: 700;
+  font-size: 1.9rem;
+  display: inline-block;
 }
 
 .section-subtitle {
@@ -60,10 +86,11 @@ h2 {
   font-size: 1.15rem;
   margin-top: 2rem;
   margin-bottom: 1rem;
+  color: var(--color-secondary);
 }
 
 a {
-  color: var(--color-primary);
+  color: var(--color-secondary);
   text-decoration: none;
 }
 
@@ -85,43 +112,47 @@ section:nth-of-type(even) {
    ========================================================= */
 .btn {
   display: inline-block;
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--radius);
-  font-weight: 600;
+  padding: 0.8rem 1.6rem;
+  border-radius: 999px;
+  font-weight: 700;
   font-size: 0.95rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
 
 .btn:hover,
 .btn:focus {
   text-decoration: none;
+  transform: translateY(-3px);
 }
 
 .btn-primary {
-  background-color: var(--color-primary);
-  color: #ffffff;
+  background: var(--gradient-main);
+  color: #0b0c1e;
+  box-shadow: 0 0 24px rgba(139, 92, 246, 0.45);
 }
 
 .btn-primary:hover,
 .btn-primary:focus {
-  background-color: var(--color-primary-dark);
+  box-shadow: 0 0 34px rgba(34, 211, 238, 0.55);
 }
 
 .btn-secondary {
   background-color: transparent;
-  color: var(--color-primary);
-  border: 1px solid var(--color-primary);
+  color: var(--color-secondary);
+  border: 1px solid var(--color-secondary);
 }
 
 .btn-secondary:hover,
 .btn-secondary:focus {
-  background-color: var(--color-bg-alt);
+  background-color: rgba(34, 211, 238, 0.12);
 }
 
 /* =========================================================
    헤더
    ========================================================= */
 .site-header {
-  background-color: var(--color-bg);
+  background-color: rgba(11, 12, 30, 0.75);
+  backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--color-border);
   position: sticky;
   top: 0;
@@ -146,8 +177,11 @@ section:nth-of-type(even) {
 
 .logo-name {
   font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--color-primary);
+  font-weight: 800;
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .logo-role {
@@ -171,8 +205,8 @@ section:nth-of-type(even) {
    인트로
    ========================================================= */
 .intro {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
 }
 
 .intro-inner {
@@ -186,18 +220,25 @@ section:nth-of-type(even) {
   height: 220px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid var(--color-bg-alt);
+  border: 3px solid transparent;
+  background: var(--gradient-main) border-box;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
   flex-shrink: 0;
+  box-shadow: 0 0 40px rgba(139, 92, 246, 0.35);
 }
 
 .intro-text h1 {
-  font-size: 1.75rem;
+  font-size: 1.9rem;
   margin-bottom: 1rem;
 }
 
 .role-line {
-  color: var(--color-primary);
-  font-weight: 600;
+  color: var(--color-secondary);
+  font-weight: 700;
   margin-bottom: 1rem;
 }
 
@@ -243,16 +284,23 @@ section:nth-of-type(even) {
 }
 
 .card {
-  background-color: var(--color-card-bg);
+  background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   padding: 1.75rem;
-  box-shadow: 0 2px 6px rgba(34, 48, 63, 0.05);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: var(--color-primary);
+  box-shadow: 0 16px 40px rgba(139, 92, 246, 0.3);
 }
 
 .card-title {
   font-size: 1.1rem;
-  color: var(--color-primary);
+  color: var(--color-secondary);
   margin-bottom: 0.6rem;
 }
 
@@ -261,9 +309,39 @@ section:nth-of-type(even) {
   font-size: 0.95rem;
 }
 
-/* 관심사 섹션은 카드 4개라 2열 배치 */
-#interests .card-grid {
-  grid-template-columns: repeat(2, 1fr);
+/* =========================================================
+   관심사: 스크롤 시 카드가 하나씩 등장 (화면의 2/3 크기)
+   ========================================================= */
+.interests-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6rem;
+  margin-top: 3rem;
+}
+
+.interest-card {
+  width: 66%;
+  max-width: 760px;
+  padding: 3rem;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(70px) scale(0.94);
+  transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.interest-card.in-view {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.interest-card .card-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.interest-card .card-desc {
+  font-size: 1.05rem;
 }
 
 /* =========================================================
@@ -273,17 +351,19 @@ section:nth-of-type(even) {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.75rem;
-  margin-top: 2rem;
+  margin-top: 3rem;
 }
 
 .tag-list li {
-  background-color: var(--color-bg);
-  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-secondary);
   border-radius: 999px;
-  padding: 0.4rem 1.1rem;
+  padding: 0.45rem 1.2rem;
   font-size: 0.9rem;
-  color: var(--color-primary);
+  color: var(--color-secondary);
+  box-shadow: 0 0 14px rgba(34, 211, 238, 0.15);
 }
 
 /* =========================================================
@@ -314,7 +394,8 @@ section:nth-of-type(even) {
    푸터
    ========================================================= */
 .site-footer {
-  background-color: var(--color-primary-dark);
+  background-color: var(--color-bg-alt);
+  border-top: 1px solid var(--color-border);
   color: #ffffff;
   text-align: center;
   padding: 2.5rem 0;
@@ -332,11 +413,11 @@ section:nth-of-type(even) {
 
 .footer-tagline {
   font-size: 0.9rem;
-  color: #d8e2ec;
+  color: var(--color-text-muted);
 }
 
 .footer-links a {
-  color: #ffffff;
+  color: var(--color-secondary);
   font-size: 0.9rem;
 }
 
@@ -374,9 +455,14 @@ section:nth-of-type(even) {
     justify-content: center;
   }
 
-  /* 카드와 경력 목록을 한 열로 배치 */
-  .card-grid,
-  #interests .card-grid {
+  /* 카드 목록을 한 열로 배치 */
+  .card-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* 관심사 카드는 화면 대부분을 차지하도록 */
+  .interest-card {
+    width: 92%;
+    padding: 2rem;
   }
 }
