@@ -154,21 +154,42 @@
       <div class="container">
         <h2>Contact</h2>
         <p class="section-subtitle">함께할 프로젝트에 대해 이야기해 주세요.</p>
-        <p class="contact-desc">
-          사업 기획, 외식 프랜차이즈, 운영 개선 및 프로젝트 협업에 관한
-          제안을 기다립니다.
-        </p>
 
-        <ul class="contact-info">
-          <li>이메일: <a href="mailto:example@email.com">example@email.com</a></li>
-          <li>활동 지역: Daegu, Republic of Korea</li>
-          <li>GitHub: <a href="https://github.com/caphojae-jpg" target="_blank" rel="noopener noreferrer">https://github.com/caphojae-jpg</a></li>
-          <li>협업 분야: Business Consulting · Project Collaboration</li>
-        </ul>
+        <!-- 클릭하면 연락처 팝업이 열리는 상자 -->
+        <button
+          type="button"
+          class="contact-trigger"
+          id="contactTrigger"
+          aria-haspopup="dialog"
+          aria-controls="contactModal"
+        >
+          <h3 class="card-title">연락처 보기</h3>
+          <p class="card-desc">클릭하면 이메일, GitHub 등 연락 정보를 확인할 수 있습니다.</p>
+        </button>
+      </div>
 
-        <div class="contact-buttons">
-          <a href="mailto:example@email.com" class="btn btn-primary">이메일 보내기</a>
-          <a href="https://github.com/caphojae-jpg" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub 방문하기</a>
+      <!-- 연락처 팝업 -->
+      <div class="modal-overlay" id="contactModal">
+        <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
+          <h3 id="contactModalTitle">Contact</h3>
+          <p class="contact-desc">
+            사업 기획, 외식 프랜차이즈, 운영 개선 및 프로젝트 협업에 관한
+            제안을 기다립니다.
+          </p>
+
+          <ul class="contact-info">
+            <li>이메일: <a href="mailto:example@email.com">example@email.com</a></li>
+            <li>활동 지역: Daegu, Republic of Korea</li>
+            <li>GitHub: <a href="https://github.com/caphojae-jpg" target="_blank" rel="noopener noreferrer">https://github.com/caphojae-jpg</a></li>
+            <li>협업 분야: Business Consulting · Project Collaboration</li>
+          </ul>
+
+          <div class="contact-buttons">
+            <a href="mailto:example@email.com" class="btn btn-primary">이메일 보내기</a>
+            <a href="https://github.com/caphojae-jpg" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub 방문하기</a>
+          </div>
+
+          <button type="button" class="modal-close" id="modalClose">Close</button>
         </div>
       </div>
     </section>
