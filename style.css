@@ -337,6 +337,10 @@ section:nth-of-type(even) {
   transform: translateY(0) scale(1);
 }
 
+.interest-card.in-view:hover {
+  transform: translateY(-6px) scale(1);
+}
+
 .interest-card .card-title {
   font-size: 1.5rem;
   margin-bottom: 1rem;
