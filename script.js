@@ -1,3 +1,28 @@
+// 갤러리 슬라이더: 화살표 · 점 클릭으로 이미지 전환
+document.addEventListener('DOMContentLoaded', () => {
+  const slider = document.getElementById('imageSlider');
+  if (!slider) {
+    return;
+  }
+
+  const track = slider.querySelector('.slider-track');
+  const slides = slider.querySelectorAll('.slide');
+  const prevBtn = slider.querySelector('.slider-prev');
+  const nextBtn = slider.querySelector('.slider-next');
+  const dots = slider.querySelectorAll('.slider-dot');
+  let current = 0;
+
+  const goTo = (index) => {
+    current = (index + slides.length) % slides.length;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
+  };
+
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+  dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+});
+
 // 관심사 카드: 스크롤로 화면에 들어올 때 하나씩 나타나는 효과
 document.addEventListener('DOMContentLoaded', () => {
   const cards = document.querySelectorAll('.interest-card');
